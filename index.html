@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#10111e">
+    <meta name="description" content="Steer your star catcher with your face in a private, camera-powered arcade game.">
+    <title>Star Catcher — Face Arcade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core@4.22.0"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@4.22.0"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619/face_mesh.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@1.0.6"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Star Catcher home">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span>FACE<span class="brand-light">ARCADE</span></span>
+        </a>
+        <div class="privacy-chip"><span class="privacy-dot"></span> CAMERA STAYS HERE</div>
+      </header>
+
+      <section class="intro">
+        <div class="eyebrow"><span class="eyebrow-line"></span> HEAD MOVEMENT = GAME MOVEMENT</div>
+        <h1>STAR <span>CATCHER</span></h1>
+        <p class="intro-copy">Lean left and right to catch the falling stars. Dodge the space rocks. How many points can you grab?</p>
+      </section>
+
+      <section class="arcade" aria-label="Star Catcher arcade game">
+        <div class="playfield-card">
+          <div class="playfield-header">
+            <div class="live-label"><span class="live-dot" id="live-dot"></span><span id="camera-label">CAMERA OFF</span></div>
+            <div class="game-tip" id="game-tip">← MOVE YOUR HEAD →</div>
+          </div>
+          <div class="playfield-wrap" id="playfield-wrap">
+            <canvas id="game-canvas" aria-label="Game field. Move your head to steer the catcher."></canvas>
+            <div class="game-overlay" id="game-overlay">
+              <div class="overlay-icon" id="overlay-icon">✦</div>
+              <h2 id="overlay-title">Catch a falling star.</h2>
+              <p id="overlay-copy">Your face steers the catcher. Grab the gold stars and dodge the purple rocks.</p>
+              <span class="overlay-controls">3 LIVES <i>·</i> 45 SECONDS</span>
+            </div>
+            <div class="countdown" id="countdown" aria-live="polite"></div>
+          </div>
+          <div class="playfield-footer">
+            <span id="status-text">Start the game to turn on your camera.</span>
+            <span class="privacy-note"><span aria-hidden="true">⌑</span> VIDEO NEVER LEAVES YOUR DEVICE</span>
+          </div>
+        </div>
+
+        <aside class="side-panel">
+          <div class="score-card">
+            <div class="card-label">YOUR SCORE</div>
+            <strong class="big-score" id="score-value">000</strong>
+            <div class="best-line">PERSONAL BEST <span id="best-value">000</span></div>
+          </div>
+          <div class="stats-row">
+            <div class="stat-card"><span class="stat-label">TIME</span><strong id="timer-value">45</strong><small>SEC</small></div>
+            <div class="stat-card"><span class="stat-label">LIVES</span><strong id="lives-value">♥ ♥ ♥</strong></div>
+          </div>
+          <div class="camera-card">
+            <div class="camera-card-header"><span>YOUR PILOT</span><span id="face-status">WAITING</span></div>
+            <div class="camera-preview" id="camera-preview">
+              <video id="camera" autoplay playsinline muted></video>
+              <canvas id="face-overlay" aria-hidden="true"></canvas>
+              <div class="camera-placeholder" id="camera-placeholder">
+                <span class="face-outline" aria-hidden="true">☺</span>
+                <span>Your face goes here</span>
+              </div>
+            </div>
+            <div class="camera-card-footer">Move your face to steer</div>
+          </div>
+          <button class="play-button" id="play-button" type="button">
+            <span id="button-text">START PLAYING</span><span aria-hidden="true">↗</span>
+          </button>
+          <p class="button-note" id="button-note">Arrow keys work too</p>
+        </aside>
+      </section>
+      <footer class="page-footer"><span>Catch stars. Dodge rocks. Keep your cool.</span><span>Face tracking powered by TensorFlow.js</span></footer>
+    </main>
+  </body>
+</html>
